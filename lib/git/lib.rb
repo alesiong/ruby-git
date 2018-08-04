@@ -192,6 +192,14 @@ module Git
 
         if key == 'parent'
           hsh['parent'] << value.join(' ')
+        elsif key == 'gpgsig'
+          hsh[key] = value.join(' ')
+          line = data.shift
+          while line.start_with? ' '
+            hsh[key] << line.strip
+            line = data.shift
+          end
+          data.unshift line
         else
           hsh[key] = value.join(' ')
         end
